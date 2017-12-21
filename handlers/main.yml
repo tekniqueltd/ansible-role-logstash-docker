@@ -1,0 +1,13 @@
+---
+- name: restart logstash-docker
+  docker_service:
+    project_src: "{{ logstash_docker_directory }}"
+    state: present
+    restarted: yes
+  become: yes
+  become_user: "{{ logstash_docker_user }}"
+  when: not start_logstash_docker.changed
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+    - logstash_docker_testing

@@ -1,0 +1,13 @@
+version: '2.2'
+services:
+  logstash_docker:
+    image: {{ logstash_docker_image_name }}:{{ logstash_docker_version }}
+    volumes:
+      - ./logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - 5044:5044
+    restart: always
+    #stdin_open: true
+    #command: /bin/bash
+    #tty: true

@@ -1,0 +1,16 @@
+logstash_docker_image_name: docker.elastic.co/logstash/logstash-oss
+logstash_docker_version: 6.1.0
+logstash_docker_pull_images: yes
+logstash_docker_user: logstash-docker
+logstash_docker_log_sensitive: yes
+logstash_docker_directory: /srv/logstash-docker
+logstash_docker_inputs:
+  beats:
+    port: 5044
+logstash_docker_outputs:
+  elasticsearch:
+    hosts: "['172.17.0.2']"
+logstash_docker_settings:
+  http.host: "0.0.0.0"
+  path.config: /usr/share/logstash/pipeline
+  log.level: info

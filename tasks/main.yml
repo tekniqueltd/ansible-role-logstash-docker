@@ -1,0 +1,78 @@
+---
+- name: Create logstash_docker user
+  user:
+    name: "{{ logstash_docker_user }}"
+    home: "{{ logstash_docker_directory }}"
+    createhome: yes
+    groups: docker
+    append: yes
+  become: yes
+  tags:
+    - logstash_docker
+
+- name: Pull logstash_docker docker image
+  docker_image:
+    name: "{{ logstash_docker_image_name }}:{{ logstash_docker_version }}"
+    force: "{{ logstash_docker_pull_images|bool }}"
+  become: yes
+  become_user: "{{ logstash_docker_user }}"
+  tags:
+    - logstash_docker
+    - logstash_docker_testing
+
+- name: Template docker-compose.yml
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ logstash_docker_directory }}/docker-compose.yml"
+    mode: 0750
+  become: yes
+  become_user: "{{ logstash_docker_user }}"
+  no_log: "{{ not logstash_docker_log_sensitive }}"
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+    - logstash_docker_testing
+
+- name: Template logstash settings
+  template:
+    src: logstash.yml.j2
+    dest: "{{ logstash_docker_directory }}/logstash.yml"
+    owner: 1000
+    group: 1000
+    mode: 0600
+  become: yes
+  no_log: "{{ not logstash_docker_log_sensitive }}"
+  notify:
+    - restart logstash-docker
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+    - logstash_docker_testing
+
+- name: Template logstash config
+  template:
+    src: logstash.conf.j2
+    dest: "{{ logstash_docker_directory }}/logstash.conf"
+    owner: 1000
+    group: 1000
+    mode: 0600
+  become: yes
+  no_log: "{{ not logstash_docker_log_sensitive }}"
+  notify:
+    - restart logstash-docker
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+    - logstash_docker_testing
+
+- name: Start logstash docker
+  docker_service:
+    project_src: "{{ logstash_docker_directory }}"
+    state: present
+  become: yes
+  become_user: "{{ logstash_docker_user }}"
+  register: start_logstash_docker
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+    - logstash_docker_testing

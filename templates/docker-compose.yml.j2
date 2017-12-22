@@ -3,11 +3,18 @@ services:
   logstash_docker:
     image: {{ logstash_docker_image_name }}:{{ logstash_docker_version }}
     volumes:
+{% if logstash_docker_outputs.amazon_es is defined %}
+      - ./custom-docker-entrypoint:/usr/local/bin/custom-docker-entrypoint
+{% endif %}
       - ./logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     ports:
       - 5044:5044
     restart: always
+{% if logstash_docker_outputs.amazon_es is defined %}
+    entrypoint:
+      - /usr/local/bin/custom-docker-entrypoint
+{% endif %}
     #stdin_open: true
     #command: /bin/bash
     #tty: true

@@ -4,5 +4,6 @@
   vars:
     logstash_docker_directory: ./output
     logstash_docker_user: "{{ ansible_user_id }}"
+
   roles:
     - logstash-docker

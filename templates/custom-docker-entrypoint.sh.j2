@@ -1,0 +1,4 @@
+#!/bin/bash
+{% if logstash_docker_outputs.amazon_es is defined %}
+logstash-plugin install logstash-output-amazon_es && /usr/local/bin/docker-entrypoint
+{% endif %}

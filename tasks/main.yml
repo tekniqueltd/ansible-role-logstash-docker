@@ -33,6 +33,22 @@
     - logstash_docker_deploy
     - logstash_docker_testing
 
+- name: Template custom-docker-entrypoint
+  template:
+    src: custom-docker-entrypoint.j2
+    dest: "{{ logstash_docker_directory }}/custom-docker-entrypoint"
+    mode: 0755
+  become: yes
+  become_user: "{{ logstash_docker_user }}"
+  no_log: "{{ not logstash_docker_log_sensitive }}"
+  when: logstash_docker_outputs.amazon_es is defined
+  notify:
+    - restart logstash-docker
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+    - logstash_docker_testing
+
 - name: Template logstash settings
   template:
     src: logstash.yml.j2

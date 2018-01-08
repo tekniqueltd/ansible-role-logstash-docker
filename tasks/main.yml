@@ -1,5 +1,5 @@
 ---
-- name: Create logstash_docker user
+- name: Create logstash docker user
   user:
     name: "{{ logstash_docker_user }}"
     home: "{{ logstash_docker_directory }}"
@@ -10,7 +10,7 @@
   tags:
     - logstash_docker
 
-- name: Pull logstash_docker docker image
+- name: Pull logstash docker image
   docker_image:
     name: "{{ logstash_docker_image_name }}:{{ logstash_docker_version }}"
     force: "{{ logstash_docker_pull_images|bool }}"

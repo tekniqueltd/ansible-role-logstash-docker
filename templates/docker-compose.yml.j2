@@ -6,8 +6,9 @@ services:
 {% if logstash_docker_outputs.amazon_es is defined %}
       - ./custom-docker-entrypoint:/usr/local/bin/custom-docker-entrypoint
 {% endif %}
+      - ./pipeline:/usr/share/logstash/pipeline
+      - ./patterns:/usr/share/logstash/patterns
       - ./logstash.yml:/usr/share/logstash/config/logstash.yml
-      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     ports:
       - 5044:5044
     restart: always

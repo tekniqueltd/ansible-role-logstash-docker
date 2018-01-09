@@ -20,6 +20,35 @@
     - logstash_docker
     - logstash_docker_testing
 
+- name: Create pipeline directory
+  file:
+    path: "{{ logstash_docker_directory }}/pipeline"
+    state: directory
+    owner: 1000
+    group: 1000
+    mode: 0770
+  become: yes
+  notify:
+    - restart logstash-docker
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+    - logstash_docker_testing
+
+- name: Create patterns directory
+  file:
+    path: "{{ logstash_docker_directory }}/patterns"
+    state: directory
+    owner: 1000
+    group: 1000
+    mode: 0770
+  become: yes
+  notify:
+    - restart logstash-docker
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+
 - name: Template docker-compose.yml
   template:
     src: docker-compose.yml.j2
@@ -68,7 +97,7 @@
 - name: Template logstash config
   template:
     src: logstash.conf.j2
-    dest: "{{ logstash_docker_directory }}/logstash.conf"
+    dest: "{{ logstash_docker_directory }}/pipeline/logstash.conf"
     owner: 1000
     group: 1000
     mode: 0600

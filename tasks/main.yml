@@ -6,6 +6,7 @@
     createhome: yes
     groups: docker
     append: yes
+    shell: /bin/bash
   become: yes
   tags:
     - logstash_docker

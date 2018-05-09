@@ -20,7 +20,13 @@ services:
       - ./ca.pem:/ca.pem:ro
 {% endif %}
     ports:
-      - 5044:5044
+{% for input_k, input_v in logstash_docker_inputs.iteritems() %}
+{% for k, v in input_v.iteritems() %}
+{% if k == "port" %}
+      - {{ v|e }}:{{ v|e }}
+{% endif %}
+{% endfor %}
+{% endfor %}
     restart: always
 {% if logstash_docker_outputs.amazon_es is defined %}
     entrypoint:

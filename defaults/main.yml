@@ -16,3 +16,6 @@ logstash_docker_settings:
   log.level: info
 logstash_docker_jvm_xmx_m: 1024
 logstash_docker_jvm_xms_m: "{{ logstash_docker_jvm_xmx_m }}"
+logstash_docker_tls_cacert: ""
+logstash_docker_tls_cert: ""
+logstash_docker_tls_key: ""

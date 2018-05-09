@@ -127,6 +127,56 @@
     - logstash_docker_deploy
     - logstash_docker_testing
 
+- name: Copy logstash TLS server key
+  copy:
+    content: "{{ logstash_docker_tls_key }}"
+    dest: "{{ logstash_docker_directory }}/server-key.pem"
+    owner: "{{ logstash_docker_user }}"
+    owner: 1000
+    group: 1000
+    mode: 0600
+  become: yes
+  no_log: "{{ not logstash_docker_log_sensitive }}"
+  when: logstash_docker_tls_key != ""
+  notify:
+    - restart logstash-docker
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+    - logstash_docker_testing
+
+- name: Copy logstash TLS server cert
+  copy:
+    content: "{{ logstash_docker_tls_cert }}"
+    dest: "{{ logstash_docker_directory }}/server.pem"
+    owner: 1000
+    group: 1000
+    mode: 0600
+  become: yes
+  when: logstash_docker_tls_cert != ""
+  notify:
+    - restart logstash-docker
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+    - logstash_docker_testing
+
+- name: Copy logstash TLS CA cert
+  copy:
+    content: "{{ logstash_docker_tls_cacert }}"
+    dest: "{{ logstash_docker_directory }}/ca.pem"
+    owner: 1000
+    group: 1000
+    mode: 0600
+  become: yes
+  when: logstash_docker_tls_cacert != ""
+  notify:
+    - restart logstash-docker
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+    - logstash_docker_testing
+
 - name: Start logstash docker
   docker_service:
     project_src: "{{ logstash_docker_directory }}"

@@ -10,6 +10,15 @@ services:
       - ./patterns:/usr/share/logstash/patterns
       - ./logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./jvm.options:/usr/share/logstash/config/jvm.options
+{% if logstash_docker_tls_key != "" %}
+      - ./server-key.pem:/server-key.pem:ro
+{% endif %}
+{% if logstash_docker_tls_cert != "" %}
+      - ./server.pem:/server.pem:ro
+{% endif %}
+{% if logstash_docker_tls_cacert != "" %}
+      - ./ca.pem:/ca.pem:ro
+{% endif %}
     ports:
       - 5044:5044
     restart: always

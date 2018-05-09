@@ -9,6 +9,7 @@ services:
       - ./pipeline:/usr/share/logstash/pipeline
       - ./patterns:/usr/share/logstash/patterns
       - ./logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./jvm.options:/usr/share/logstash/config/jvm.options
     ports:
       - 5044:5044
     restart: always

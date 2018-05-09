@@ -14,3 +14,5 @@ logstash_docker_settings:
   http.host: "0.0.0.0"
   path.config: /usr/share/logstash/pipeline
   log.level: info
+logstash_docker_jvm_xmx_m: 1024
+logstash_docker_jvm_xms_m: "{{ logstash_docker_jvm_xmx_m }}"

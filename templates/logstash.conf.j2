@@ -1,8 +1,8 @@
 input {
 {% for k, v in logstash_docker_inputs.iteritems() %}
-  {{ k }} {
+  {{ k|e }} {
 {% for key, value in v.iteritems() %}
-    {{ key }} => {{ value }}
+    {{ key|e }} => {{ value }}
 {% endfor %}
   }
 {% endfor %}
@@ -10,9 +10,9 @@ input {
 
 output {
 {% for k, v in logstash_docker_outputs.iteritems() %}
-  {{ k }} {
+  {{ k|e }} {
 {% for key, value in v.iteritems() %}
-    {{ key }} => {{ value }}
+    {{ key|e }} => {{ value }}
 {% endfor %}
   }
 {% endfor %}

@@ -50,6 +50,22 @@
     - logstash_docker
     - logstash_docker_deploy
 
+- name: Create sincedb directory for S3 input
+  file:
+    path: "{{ logstash_docker_directory }}/sincedb"
+    state: directory
+    owner: 1000
+    group: 1000
+    mode: 0777
+  become: yes
+  notify:
+    - restart logstash-docker
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+    - logstash_docker_testing
+  when: logstash_docker_inputs.s3 is defined
+
 - name: Template docker-compose.yml
   template:
     src: docker-compose.yml.j2

@@ -10,6 +10,9 @@ services:
       - ./patterns:/usr/share/logstash/patterns
       - ./logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./jvm.options:/usr/share/logstash/config/jvm.options
+{% if logstash_docker_inputs.s3 is defined %}
+      - ./sincedb:/sincedb/
+{% endif %}
 {% if logstash_docker_tls_key != "" %}
       - ./server-key.pem:/server-key.pem:ro
 {% endif %}

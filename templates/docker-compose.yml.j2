@@ -30,6 +30,10 @@ services:
 {% endif %}
 {% endfor %}
 {% endfor %}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
     restart: always
 {% if logstash_docker_outputs.amazon_es is defined %}
     entrypoint:

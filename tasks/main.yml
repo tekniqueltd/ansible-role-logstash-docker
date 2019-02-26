@@ -147,7 +147,6 @@
   copy:
     content: "{{ logstash_docker_tls_key }}"
     dest: "{{ logstash_docker_directory }}/server-key.pem"
-    owner: "{{ logstash_docker_user }}"
     owner: 1000
     group: 1000
     mode: 0600

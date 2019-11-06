@@ -1,5 +1,5 @@
 logstash_docker_image_name: docker.elastic.co/logstash/logstash-oss
-logstash_docker_version: 6.4.1
+logstash_docker_version: 7.4.1
 logstash_docker_pull_images: yes
 logstash_docker_user: logstash-docker
 logstash_docker_log_sensitive: yes

@@ -39,3 +39,11 @@ services:
     entrypoint:
       - /usr/local/bin/custom-docker-entrypoint
 {% endif %}
+{% if logstash_docker_stats_exporter_enable %}
+  logstash_exporter:
+    image: {{ logstash_docker_stats_exporter_image }}:{{ logstash_docker_stats_exporter_version }}
+    entrypoint: ["/logstash_exporter", "--logstash.endpoint=http://logstash_docker:{{ logstash_docker_stats_api }}"]
+    ports:
+      - {{ logstash_docker_stats_exporter_port }}:{{ logstash_docker_stats_exporter_port }}
+    restart: always
+{% endif %}

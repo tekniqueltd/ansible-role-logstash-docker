@@ -19,3 +19,8 @@ logstash_docker_jvm_xms_m: "{{ logstash_docker_jvm_xmx_m }}"
 logstash_docker_tls_cacert: ""
 logstash_docker_tls_cert: ""
 logstash_docker_tls_key: ""
+logstash_docker_stats_exporter_enable: false
+logstash_docker_stats_api: 9600
+logstash_docker_stats_exporter_image: sequra/logstash_exporter
+logstash_docker_stats_exporter_version: v0.1.3
+logstash_docker_stats_exporter_port: 9198

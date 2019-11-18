@@ -17,7 +17,7 @@
 ################################################################
 
 ## GC configuration
--XX:+UseConcMarkSweepGC
+#-XX:+UseConcMarkSweepGC
 -XX:CMSInitiatingOccupancyFraction=75
 -XX:+UseCMSInitiatingOccupancyOnly
 
@@ -79,3 +79,19 @@
 
 # Copy the logging context from parent threads to children
 -Dlog4j2.isThreadContextMapInheritable=true
+
+# Known ruby issue
+# https://github.com/elastic/logstash/blob/master/docs/static/troubleshooting.asciidoc
+# https://github.com/elastic/logstash/issues/10496
+--add-opens=java.base/java.lang=ALL-UNNAMED
+--add-opens=java.base/java.security=ALL-UNNAMED
+--add-opens=java.base/java.util=ALL-UNNAMED
+--add-opens=java.base/java.security.cert=ALL-UNNAMED
+--add-opens=java.base/java.util.zip=ALL-UNNAMED
+--add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+--add-opens=java.base/java.util.regex=ALL-UNNAMED
+--add-opens=java.base/java.net=ALL-UNNAMED
+--add-opens=java.base/java.io=ALL-UNNAMED
+--add-opens=java.base/java.lang=ALL-UNNAMED
+--add-opens=java.base/javax.crypto=ALL-UNNAMED
+--add-opens=java.management/sun.management=ALL-UNNAMED

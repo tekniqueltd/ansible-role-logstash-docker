@@ -143,6 +143,22 @@
     - logstash_docker_deploy
     - logstash_docker_testing
 
+- name: Copy elasticsearch index template for logstash
+  copy:
+    src: "{{ logstash_docker_elasticsearch_template }}"
+    dest: /srv/logstash-docker/elasticsearch-custom-template-es6x.json
+    owner: 1000
+    group: 1000
+    mode: 0644
+  become: yes
+  when: logstash_docker_elasticsearch_template != ""
+  notify:
+    - restart logstash-docker
+  tags:
+    - logstash_docker
+    - logstash_docker_deploy
+    - logstash_docker_testing
+
 - name: Copy logstash TLS server key
   copy:
     content: "{{ logstash_docker_tls_key }}"

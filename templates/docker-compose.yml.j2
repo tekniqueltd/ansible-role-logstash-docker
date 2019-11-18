@@ -10,6 +10,9 @@ services:
       - ./patterns:/usr/share/logstash/patterns
       - ./logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./jvm.options:/usr/share/logstash/config/jvm.options
+{% if logstash_docker_elasticsearch_template != "" %}
+      - ./elasticsearch-custom-template-es6x.json:/usr/share/logstash/config/elasticsearch-custom-template-es6x.json
+{% endif %}
 {% if logstash_docker_inputs.s3 is defined %}
       - ./sincedb:/sincedb/
 {% endif %}

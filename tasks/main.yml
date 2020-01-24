@@ -209,7 +209,7 @@
     - logstash_docker_testing
 
 - name: Start logstash docker
-  docker_service:
+  docker_compose:
     project_src: "{{ logstash_docker_directory }}"
     state: present
   become: yes

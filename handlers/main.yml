@@ -1,6 +1,6 @@
 ---
 - name: restart logstash-docker
-  docker_service:
+  docker_compose:
     project_src: "{{ logstash_docker_directory }}"
     state: present
     restarted: yes
